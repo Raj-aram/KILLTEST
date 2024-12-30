@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Reader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .book-container {
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            perspective: 1000px;
+        }
+
+        .page {
+            padding: 20px;
+            background-color: #fafafa;
+            border-radius: 4px;
+            min-height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg);
+            transition: transform 0.8s ease;
+        }
+
+        .page.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .navigation {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Additional Styles */
+        .page-content {
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="book-container">
+        <div class="page" id="page">
+            <p id="page-content" class="page-content"></p>
+        </div>
+
+        <div class="navigation">
+            <button id="prev-btn" onclick="changePage(-1)">Previous</button>
+            <button id="next-btn" onclick="changePage(1)">Next</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample text data for book pages
+        const bookPages = [
+            "Page 1: Once upon a time in a land far, far away...",
+            "Page 2: There was a kingdom ruled by a wise king...",
+            "Page 3: The king had a daughter who was loved by all...",
+            "Page 4: One day, a mysterious traveler arrived at the gates...",
+            "Page 5: The traveler had a message for the king...",
+            // Add more pages as needed
+        ];
+
+        let currentPage = 0;
+        let isFlipping = false; // To prevent flipping while a flip is in progress
+
+        function displayPage(pageIndex) {
+            // Ensure the page index stays within bounds
+            if (pageIndex < 0) {
+                currentPage = 0;
+            } else if (pageIndex >= bookPages.length) {
+                currentPage = bookPages.length - 1;
+            } else {
+                currentPage = pageIndex;
+            }
+
+            // Update the content of the page
+            const pageContent = document.getElementById("page-content");
+            pageContent.textContent = bookPages[currentPage];
+
+            // Disable/enable buttons based on page number
+            document.getElementById("prev-btn").disabled = currentPage === 0;
+            document.getElementById("next-btn").disabled = currentPage === bookPages.length - 1;
+        }
+
+        function changePage(direction) {
+            if (isFlipping) return; // Prevent page change if a flip is in progress
+            isFlipping = true;
+
+            const page = document.getElementById("page");
+            page.classList.add('flipped'); // Apply 3D flip effect
+
+            // Wait for flip animation to finish
+            setTimeout(() => {
+                displayPage(currentPage + direction);
+                page.classList.remove('flipped'); // Remove the 3D flip effect
+                isFlipping = false;
+            }, 800); // Match the animation duration in CSS
+        }
+
+        function handleArrowKeys(event) {
+            if (event.key === "ArrowRight") {
+                changePage(1);
+            } else if (event.key === "ArrowLeft") {
+                changePage(-1);
+            }
+        }
+
+        // Event listener for arrow keys
+        document.addEventListener("keydown", handleArrowKeys);
+
+        // Initially display the first page
+        displayPage(currentPage);
+    </script>
+</body>
+</html>
+
