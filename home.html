@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oriental University</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    .stats-section {
+      background-image: url('background-image.jpg'); /* Replace with your image path */
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 50px 0;
+      text-align: center;
+      position: relative;
+    }
+    .stats-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+    .stats-container {
+      position: relative;
+      z-index: 2;
+    }
+    .stat-box {
+      padding: 20px;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+    .stat-label {
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="logo.png" alt="Oriental University Logo" style="height: 50px;"> <!-- Replace with logo path -->
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Scholarship</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Programs</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Admissions</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Flyer</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Virtual Tour</a></li>
+      </ul>
+    </div>
+    <a class="btn btn-warning ms-3" href="tel:07313565036">0731-3565036</a>
+  </div>
+</nav>
+
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="stats-overlay"></div>
+  <div class="container stats-container">
+    <div class="row">
+      <div class="col-md-3 stat-box">
+        <div class="stat-number" data-target="30">0</div>
+        <div class="stat-label">Years Of Academic Expertise</div>
+      </div>
+      <div class="col-md-3 stat-box">
+        <div class="stat-number" data-target="150">0</div>
+        <div class="stat-label">Acre Lush Green Campus</div>
+      </div>
+      <div class="col-md-3 stat-box">
+        <div class="stat-number" data-target="35000">0</div>
+        <div class="stat-label">Placements</div>
+      </div>
+      <div class="col-md-3 stat-box">
+        <div class="stat-number" data-target="50000">0</div>
+        <div class="stat-label">Global Alumni</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Add Bootstrap and JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Counting animation
+  function animateCounter(element) {
+    const target = +element.getAttribute('data-target');
+    const speed = 50; // The higher the value, the slower the animation
+    const increment = Math.ceil(target / speed);
+    let count = 0;
+
+    const updateCounter = () => {
+      count += increment;
+      if (count >= target) {
+        element.textContent = target;
+      } else {
+        element.textContent = count;
+        requestAnimationFrame(updateCounter);
+      }
+    };
+
+    updateCounter();
+  }
+
+  // Trigger animation when the section is in view
+  function startCountingAnimation() {
+    const counters = document.querySelectorAll('.stat-number');
+    counters.forEach(counter => animateCounter(counter));
+  }
+
+  let statsSection = document.querySelector('.stats-section');
+  let started = false;
+
+  // Check if the section is in view
+  function isInView(element) {
+    const rect = element.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom >= 0;
+  }
+
+  const checkAndStartAnimation = () => {
+    if (isInView(statsSection) && !started) {
+      started = true;
+      startCountingAnimation();
+    }
+  };
+
+  window.addEventListener('scroll', checkAndStartAnimation);
+  window.addEventListener('load', checkAndStartAnimation);
+</script>
+
+</body>
+</html>
