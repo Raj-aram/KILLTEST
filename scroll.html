@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smooth Card Flip Animation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card-container {
+            width: 300px;
+            height: 400px;
+            perspective: 1500px; /* Increased perspective for a more dramatic 3D effect */
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg);
+            transition: transform 0.8s ease-in-out; /* Smooth transition with ease-in-out for a better effect */
+        }
+
+        .card:hover {
+            transform: rotateY(180deg); /* Flip the card when hovered */
+        }
+
+        .card .front, .card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+        }
+
+        .card .front {
+            background-color: #4CAF50;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+        }
+
+        .card .back {
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            transform: rotateY(180deg); /* Initially hide the back side */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="card-container">
+    <div class="card">
+        <div class="front">
+            Front Side
+        </div>
+        <div class="back">
+            Back Side Content
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
