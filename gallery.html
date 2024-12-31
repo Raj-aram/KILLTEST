@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Uploaded Gallery</title>
+</head>
+<body>
+    <h1>Gallery</h1>
+    <div id="gallery"></div>
+    <script>
+        async function fetchGallery() {
+            const response = await fetch("https://your-backend-url/gallery");
+            const { files } = await response.json();
+            const galleryDiv = document.getElementById("gallery");
+
+            files.forEach((file) => {
+                const fileElem = document.createElement("div");
+                if (file.type === "image") {
+                    fileElem.innerHTML = `<img src="${file.url}" alt="Uploaded Image" style="max-width: 200px;"/>`;
+                } else if (file.type === "video") {
+                    fileElem.innerHTML = `<video src="${file.url}" controls style="max-width: 200px;"></video>`;
+                }
+                galleryDiv.appendChild(fileElem);
+            });
+        }
+
+        fetchGallery();
+    </script>
+</body>
+</html>

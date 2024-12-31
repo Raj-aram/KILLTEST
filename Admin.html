@@ -1,114 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <title>Gradient Background Animation</title>
-    <link href="https://fonts.googleapis.com/css?family=Nixie+One" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Reader</title>
     <style>
-        html {
-            height: 100%;
-            font-family: 'Nixie One', cursive;
-        }
-
         body {
-            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100%;
-            background: #F4E2D8;
-            animation: gradient-move 15s linear infinite;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
         }
 
-        h1 {
-            color: #fff;
-            text-transform: uppercase;
+        .book-container {
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            perspective: 1000px;
         }
 
-        @keyframes gradient-move {
-            0% { background-color: #F4E2D8; }
-            10% { background-color: #FF5F6D; }
-            20% { background-color: rgb(255, 199, 121); }
-            40% { background-color: #ff9068; }
-            60% { background-color: #CB3066; }
-            80% { background-color: #16BFFD; }
-            90% { background-color: #EECDA3; }
-            100% { background-color: #F4E2D8; }
+        .page {
+            padding: 20px;
+            background-color: #fafafa;
+            border-radius: 4px;
+            min-height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg);
+            transition: transform 0.8s ease;
         }
 
-        form {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 40px;
+        .page.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .navigation {
             margin-top: 20px;
-            padding-bottom: 60px;
-            box-shadow: 10px 10px 5px rgba(6, 1, 1, 0.43);
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
         }
 
-        .btn {
-            width: 100%;
-            border-radius: 2px;
-        }
-
-        .form-control {
-            border-radius: 3px;
-            background-color: rgba(23, 3, 3, 0.2);
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
             color: white;
-            border: 1px solid #291212;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
         }
 
-        footer {
-            background-color: #333;
-            color: white;
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Additional Styles */
+        .page-content {
+            font-size: 18px;
+            line-height: 1.6;
             text-align: center;
-            padding: 10px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
         }
-    </style>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-offset-2 col-sm-8">
-                <form>
-                    <h1>WELCOME WE NEED TO VERIFY YOUR REQUEST </h1>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Enter you name</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Your old email address</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                    <div class="form-group">
-                            <label for="exampleInputPassword1">Your mobile number   (Admin may call you for confermation)</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">    
-                    </div>
-                    <br>
-                    <button type="button" class="btn btn-default" onclick="myFunction()">Submit</button>
-                </form>
-            </div>
+    <div class="book-container">
+        <div class="page" id="page">
+            <p id="page-content" class="page-content"></p>
+        </div>
+
+        <div class="navigation">
+            <button id="prev-btn" onclick="changePage(-1)">Previous</button>
+            <button id="next-btn" onclick="changePage(1)">Next</button>
         </div>
     </div>
-    <nav>
-        <a href="index.html">home</a>
-        <a href="login.html">Login</a>
-    <footer>
-        <p>&copy; Website owner AiMl group 2024.</p>
-    </footer>
+
+    <script>
+        // Sample text data for book pages
+        const bookPages = [
+            "Page 1: Once upon a time in a land far, far away...",
+            "Page 2: There was a kingdom ruled by a wise king...",
+            "Page 3: The king had a daughter who was loved by all...",
+            "Page 4: One day, a mysterious traveler arrived at the gates...",
+            "Page 5: The traveler had a message for the king...",
+            // Add more pages as needed
+        ];
+
+        let currentPage = 0;
+        let isFlipping = false; // To prevent flipping while a flip is in progress
+
+        function displayPage(pageIndex) {
+            // Ensure the page index stays within bounds
+            if (pageIndex < 0) {
+                currentPage = 0;
+            } else if (pageIndex >= bookPages.length) {
+                currentPage = bookPages.length - 1;
+            } else {
+                currentPage = pageIndex;
+            }
+
+            // Update the content of the page
+            const pageContent = document.getElementById("page-content");
+            pageContent.textContent = bookPages[currentPage];
+
+            // Disable/enable buttons based on page number
+            document.getElementById("prev-btn").disabled = currentPage === 0;
+            document.getElementById("next-btn").disabled = currentPage === bookPages.length - 1;
+        }
+
+        function changePage(direction) {
+            if (isFlipping) return; // Prevent page change if a flip is in progress
+            isFlipping = true;
+
+            const page = document.getElementById("page");
+            page.classList.add('flipped'); // Apply 3D flip effect
+
+            // Wait for flip animation to finish
+            setTimeout(() => {
+                displayPage(currentPage + direction);
+                page.classList.remove('flipped'); // Remove the 3D flip effect
+                isFlipping = false;
+            }, 800); // Match the animation duration in CSS
+        }
+
+        function handleArrowKeys(event) {
+            if (event.key === "ArrowRight") {
+                changePage(1);
+            } else if (event.key === "ArrowLeft") {
+                changePage(-1);
+            }
+        }
+
+        // Event listener for arrow keys
+        document.addEventListener("keydown", handleArrowKeys);
+
+        // Initially display the first page
+        displayPage(currentPage);
+    </script>
 </body>
 </html>
+

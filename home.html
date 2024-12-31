@@ -3,41 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oriental University</title>
+  <title>Our Trending Streams</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
   <style>
-    .stats-section {
-      background-image: url('background-image.jpg'); /* Replace with your image path */
-      background-size: cover;
-      background-position: center;
-      color: white;
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .streams-section {
+      background-color: #fef4ea; /* Light peach background */
       padding: 50px 0;
       text-align: center;
-      position: relative;
     }
-    .stats-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 1;
-    }
-    .stats-container {
-      position: relative;
-      z-index: 2;
-    }
-    .stat-box {
-      padding: 20px;
-    }
-    .stat-number {
+    .streams-section h2 {
       font-size: 2.5rem;
       font-weight: bold;
+      margin-bottom: 30px;
+      color: #333;
     }
-    .stat-label {
-      font-size: 1rem;
-      margin-top: 10px;
+    .stream-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .stream-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+    .stream-card img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 15px;
+    }
+    .stream-card h4 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+      margin: 10px 0;
     }
   </style>
 </head>
@@ -67,26 +71,66 @@
   </div>
 </nav>
 
-<!-- Stats Section -->
-<section class="stats-section">
-  <div class="stats-overlay"></div>
-  <div class="container stats-container">
-    <div class="row">
-      <div class="col-md-3 stat-box">
-        <div class="stat-number" data-target="30">0</div>
-        <div class="stat-label">Years Of Academic Expertise</div>
+<!-- Streams Section -->
+<section class="streams-section">
+  <div class="container">
+    <h2>Our Trending Streams</h2>
+    <div class="row g-4">
+      <!-- Stream Card 1 -->
+      <div class="col-md-3">
+        <div class="stream-card">
+          <img src="agriculture-icon.png" alt="Agriculture Icon"> <!-- Replace with icon path -->
+          <h4>Agriculture</h4>
+        </div>
       </div>
-      <div class="col-md-3 stat-box">
-        <div class="stat-number" data-target="150">0</div>
-        <div class="stat-label">Acre Lush Green Campus</div>
+      <!-- Stream Card 2 -->
+      <div class="col-md-3">
+        <div class="stream-card">
+          <img src="commerce-icon.png" alt="Commerce Icon"> <!-- Replace with icon path -->
+          <h4>Commerce</h4>
+        </div>
       </div>
-      <div class="col-md-3 stat-box">
-        <div class="stat-number" data-target="35000">0</div>
-        <div class="stat-label">Placements</div>
+      <!-- Stream Card 3 -->
+      <div class="col-md-3">
+        <div class="stream-card">
+          <img src="cs-icon.png" alt="Computer Science Icon"> <!-- Replace with icon path -->
+          <h4>Computer Science & Application</h4>
+        </div>
       </div>
-      <div class="col-md-3 stat-box">
-        <div class="stat-number" data-target="50000">0</div>
-        <div class="stat-label">Global Alumni</div>
+      <!-- Stream Card 4 -->
+      <div class="col-md-3">
+        <div class="stream-card">
+          <img src="education-icon.png" alt="Education Icon"> <!-- Replace with icon path -->
+          <h4>Education</h4>
+        </div>
+      </div>
+      <!-- Stream Card 5 -->
+      <div class="col-md-3">
+        <div class="stream-card">
+          <img src="engineering-icon.png" alt="Engineering Icon"> <!-- Replace with icon path -->
+          <h4>Engineering</h4>
+        </div>
+      </div>
+      <!-- Stream Card 6 -->
+      <div class="col-md-3">
+        <div class="stream-card">
+          <img src="ris1.jpg" alt="Law Icon"> <!-- Replace with icon path -->
+          <h4>Law</h4>
+        </div>
+      </div>
+      <!-- Stream Card 7 -->
+      <div class="col-md-3">
+        <div class="stream-card">
+          <img src="management-icon.png" alt="Management Icon"> <!-- Replace with icon path -->
+          <h4>Management</h4>
+        </div>
+      </div>
+      <!-- Stream Card 8 -->
+      <div class="col-md-3">
+        <div class="stream-card">
+          <img src="pharma-icon.png" alt="Pharma Icon"> <!-- Replace with icon path -->
+          <h4>Pharmacy</h4>
+        </div>
       </div>
     </div>
   </div>
@@ -94,52 +138,5 @@
 
 <!-- Add Bootstrap and JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script>
-  // Counting animation
-  function animateCounter(element) {
-    const target = +element.getAttribute('data-target');
-    const speed = 50; // The higher the value, the slower the animation
-    const increment = Math.ceil(target / speed);
-    let count = 0;
-
-    const updateCounter = () => {
-      count += increment;
-      if (count >= target) {
-        element.textContent = target;
-      } else {
-        element.textContent = count;
-        requestAnimationFrame(updateCounter);
-      }
-    };
-
-    updateCounter();
-  }
-
-  // Trigger animation when the section is in view
-  function startCountingAnimation() {
-    const counters = document.querySelectorAll('.stat-number');
-    counters.forEach(counter => animateCounter(counter));
-  }
-
-  let statsSection = document.querySelector('.stats-section');
-  let started = false;
-
-  // Check if the section is in view
-  function isInView(element) {
-    const rect = element.getBoundingClientRect();
-    return rect.top < window.innerHeight && rect.bottom >= 0;
-  }
-
-  const checkAndStartAnimation = () => {
-    if (isInView(statsSection) && !started) {
-      started = true;
-      startCountingAnimation();
-    }
-  };
-
-  window.addEventListener('scroll', checkAndStartAnimation);
-  window.addEventListener('load', checkAndStartAnimation);
-</script>
-
 </body>
 </html>
