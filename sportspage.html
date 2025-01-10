@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Sports Page</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet" />
+  <style>
+    /* General Reset and Body Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      color: white;
+      line-height: 1.6;
+    }
+
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    header {
+      text-align: center;
+      padding: 40px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      transition: background-color 0.5s ease;
+    }
+
+    header:hover {
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      transition: color 0.3s ease;
+    }
+
+    h1:hover {
+      color: #FFD700;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px 0;
+      transition: background-color 0.5s ease;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul li {
+      margin: 0 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: color 0.3s ease, font-size 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #FFD700;
+      font-size: 1.4rem;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .tabs button {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      margin: 0 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .tabs button:hover {
+      background-color: #FFD700;
+      transform: scale(1.1);
+    }
+
+    .tabs button.active {
+      background-color: #FFD700;
+      color: black;
+    }
+
+    /* FullCalendar Styling */
+    #calendar {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+    }
+
+    /* Gallery Styling */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .gallery img {
+      width: 250px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Fade-in Effect */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Hover Effects for Images */
+    .sports-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: opacity 0.3s ease;
+    }
+
+    .sports-image:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <h1>Welcome to Sports Hub</h1>
+    <p>Your daily dose of sports news</p>
+  </header>
+
+  <nav class="navigation">
+    <ul>
+      <li><a href="#football">Football</a></li>
+      <li><a href="#basketball">Basketball</a></li>
+      <li><a href="#tennis">Tennis</a></li>
+      <li><a href="#cricket">Cricket</a></li>
+    </ul>
+  </nav>
+
+  <!-- Tabs for Sports Sections -->
+  <div class="tabs">
+    <button onclick="showTab('calendar')" id="calendar-tab" class="active">Calendar</button>
+    <button onclick="showTab('football')" id="football-tab">Football</button>
+    <button onclick="showTab('basketball')" id="basketball-tab">Basketball</button>
+    <button onclick="showTab('tennis')" id="tennis-tab">Tennis</button>
+    <button onclick="showTab('cricket')" id="cricket-tab">Cricket</button>
+  </div>
+
+  <!-- Calendar Section -->
+  <section id="calendar" class="fade-in">
+    <h2>Upcoming Sports Events</h2>
+    <div id="calendar"></div>
+  </section>
+
+  <!-- Football Gallery Section -->
+  <section id="football" class="fade-in gallery" style="display:none;">
+    <h2>Football Gallery</h2>
+    <div class="gallery">
+      <img src="https://via.placeholder.com/250x150?text=Football+Image+1" alt="Football Image 1">
+      <img src="https://via.placeholder.com/250x150?text=Football+Image+2" alt="Football Image 2">
+      <img src="https://via.placeholder.com/250x150?text=Football+Image+3" alt="Football Image 3">
+    </div>
+  </section>
+
+  <!-- Basketball Gallery Section -->
+  <section id="basketball" class="fade-in gallery" style="display:none;">
+    <h2>Basketball Gallery</h2>
+    <div class="gallery">
+      <img src="https://via.placeholder.com/250x150?text=Basketball+Image+1" alt="Basketball Image 1">
+      <img src="https://via.placeholder.com/250x150?text=Basketball+Image+2" alt="Basketball Image 2">
+      <img src="https://via.placeholder.com/250x150?text=Basketball+Image+3" alt="Basketball Image 3">
+    </div>
+  </section>
+
+  <!-- Tennis Gallery Section -->
+  <section id="tennis" class="fade-in gallery" style="display:none;">
+    <h2>Tennis Gallery</h2>
+    <div class="gallery">
+      <img src="https://via.placeholder.com/250x150?text=Tennis+Image+1" alt="Tennis Image 1">
+      <img src="https://via.placeholder.com/250x150?text=Tennis+Image+2" alt="Tennis Image 2">
+      <img src="https://via.placeholder.com/250x150?text=Tennis+Image+3" alt="Tennis Image 3">
+    </div>
+  </section>
+
+  <!-- Cricket Gallery Section -->
+  <section id="cricket" class="fade-in gallery" style="display:none;">
+    <h2>Cricket Gallery</h2>
+    <div class="gallery">
+      <img src="https://via.placeholder.com/250x150?text=Cricket+Image+1" alt="Cricket Image 1">
+      <img src="https://via.placeholder.com/250x150?text=Cricket+Image+2" alt="Cricket Image 2">
+      <img src="https://via.placeholder.com/250x150?text=Cricket+Image+3" alt="Cricket Image 3">
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 Sports Hub. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://facebook.com" target="_blank">Facebook</a>
+      <a href="https://twitter.com" target="_blank">Twitter</a>
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+    </div>
+  </footer>
+
+  <!-- FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+
+  <script>
+    // Calendar initialization with events for sports dates
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: [
+          {
+            title: 'Football Match: Team A vs Team B',
+            start: '2025-01-15T15:00:00',
+            description: 'Football match between Team A and Team B.',
+            backgroundColor: '#6a11cb', // Custom color for events
+          },
+          {
+            title: 'Basketball Game: Team X vs Team Y',
+            start: '2025-01-18T18:00:00',
+            description: 'Basketball game between Team X and Team Y.',
+            backgroundColor: '#2575fc',
+          },
+          {
+            title: 'Tennis Tournament: Round 1',
+            start: '2025-01-20T10:00:00',
+            description: 'Tennis tournament begins with Round 1.',
+            backgroundColor: '#FFD700',
+          },
+          {
+            title: 'Cricket Match: Team Z vs Team W',
+            start: '2025-01-25T12:00:00',
+            description: 'Cricket match between Team Z and Team W.',
+            backgroundColor: '#4CAF50',
+          }
+        ],
+        eventClick: function(info) {
+          alert('Event: ' + info.event.title + '\nDescription: ' + info.event.extendedProps.description);
+        }
+      });
+      calendar.render();
+    });
+
+    // Function to display the correct tab
+    function showTab(tab) {
+      const sections = document.querySelectorAll('.fade-in');
+      sections.forEach((section) => {
+        section.style.display = "none";
+      });
+      document.getElementById(tab).style.display = "block";
+
+      // Remove active class from all tabs and add to clicked tab
+      const tabs = document.querySelectorAll('.tabs button');
+      tabs.forEach((btn) => btn.classList.remove('active'));
+      document.getElementById(tab + '-tab').classList.add('active');
+    }
+
+    // Initially display the calendar section
+    showTab('calendar');
+  </script>
+
+</body>
+</html>
