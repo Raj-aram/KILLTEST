@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smooth Card Flip Animation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card-container {
+            width: 300px;
+            height: 400px;
+            perspective: 1500px; /* Increased perspective for a more dramatic 3D effect */
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg);
+            transition: transform 0.8s ease-in-out; /* Smooth transition with ease-in-out for a better effect */
+        }
+
+        .card:hover {
+            transform: rotateY(180deg); /* Flip the card when hovered */
+        }
+
+        .card .front, .card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Front side styles */
+        .card .front {
+            background-color: #4CAF50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+        }
+
+        .card .front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Makes sure the image covers the whole area while maintaining aspect ratio */
+        }
+
+        /* Back side styles */
+        .card .back {
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: rotateY(180deg); /* Initially hide the back side */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+        }
+
+        .card .back img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Makes sure the image covers the whole area while maintaining aspect ratio */
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="card-container">
+    <div class="card">
+        <!-- Front side with image -->
+        <div class="front">
+            <img src="front.jpg" alt="Front Image"> <!-- Replace with your actual image file -->
+        </div>
+        <!-- Back side with image -->
+        <div class="back">
+            <img src="back.jpg" alt="Back Image"> <!-- Replace with your actual image file -->
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
